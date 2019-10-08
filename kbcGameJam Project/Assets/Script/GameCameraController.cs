@@ -33,8 +33,8 @@ public class GameCameraController : MonoBehaviour
         const float radius = 8.0f;
         const float targetHeight = 1.5f;
         const float targetFront = 0.3f;
-
-        float degreeH = Input.GetAxis("Horizontal2") * 2.3f;
+        const float SPEED = 2.3f * 50.0f;
+        float degreeH = Input.GetAxis("Horizontal2") * SPEED * Time.deltaTime;
         float degreeV = 0.0f; //= Input.GetAxis("Vertical2") * 2.3f;
 
         m_degreeH += degreeH;

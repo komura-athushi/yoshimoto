@@ -10,17 +10,33 @@ public class PlayerController : MonoBehaviour
     GameCameraController m_gameCameraController;
     bool m_isBark = false;
     float m_timer = 0.0f;
-
+    bool m_isEscape = false;
+    float m_isEscapeTimer = 0.0f;
+    float m_isEscapeTime = 2.0f;
+    public float BARKLONG = 10.0f;
+    public float ESCAPESPEED = 1500.0f;
+    public float MOVESPEED = 13.0f;
     //吠えたかどうか
-    bool GetisBark()
+    public bool GetisBark()
     {
         return m_isBark;
     }
     //犬の吠えたベクトルを取得
-    Vector3 GetVector()
+    public Vector3 GetBarkVector()
     {
-        const float LONG = 10.0f;
-        return LONG * transform.forward;
+        
+        return BARKLONG * m_transform.forward;
+    }
+    //逃げてる?
+    public bool GetisEscape()
+    {
+        return m_isEscape;
+    }
+    //逃げた！
+    public void SetisEscape(Vector3 vector)
+    {
+        m_isEscape = true;
+        m_rigidbody.velocity =vector* ESCAPESPEED * Time.deltaTime;
     }
     // Start is called before the first frame update
     void Start()
@@ -32,12 +48,12 @@ public class PlayerController : MonoBehaviour
 
     void LookDownCamera()
     {
-        const float SPEED = 10.15f;
+        
 
         
         Vector3 moveSpeed = new Vector3(0.0f,0.0f,0.0f);
-        moveSpeed.x = Input.GetAxis("Horizontal") * SPEED;
-        moveSpeed.z = Input.GetAxis("Vertical") * SPEED;
+        moveSpeed.x = Input.GetAxis("Horizontal") * MOVESPEED;
+        moveSpeed.z = Input.GetAxis("Vertical") * MOVESPEED;
         //m_transform.position += moveSpeed;
         //rigidbody.velocity = moveSpeed;
         m_rigidbody.velocity = moveSpeed;
@@ -47,7 +63,11 @@ public class PlayerController : MonoBehaviour
     }
     void MoveRot()
     {
-        const float MOVESPEED = 13.0f;
+        if(m_isBark && m_isEscape)
+        {
+            return;
+        }
+     
 
         Vector3 front = m_gameCameraController.GetFront();
         Vector3 right = m_gameCameraController.GetRight();
@@ -64,17 +84,43 @@ public class PlayerController : MonoBehaviour
             return;
         }
         Quaternion rot = new Quaternion();
-        rot.SetLookRotation(moveSpeed);
+        rot.SetLookRotation(moveSpeed * Time.deltaTime);
         transform.rotation = rot;
     }
     void Bark()
     {
-
+        if(m_isEscape)
+        {
+            return;
+        }
+        if(m_isBark)
+        {
+            m_timer += Time.deltaTime;
+            if(m_timer >= 1.0f)
+            {
+                m_isBark = false;
+                m_timer = 0.0f;
+            }
+        }
+        else if(Input.GetKeyDown("joystick button 0")) {
+            m_isBark = true;
+            m_rigidbody.velocity = Vector3.zero;
+        }
     }
     // Update is called once per frame
     void Update()
     {
+       
         MoveRot();
-        
+        Bark();
+      
+        if(m_isEscape) {
+            m_isEscapeTimer += Time.deltaTime;
+            if(m_isEscapeTimer >= m_isEscapeTime)
+            {
+                m_isEscape = false;
+                m_isEscapeTimer = 0.0f;
+            }
+        }
     }
 }
