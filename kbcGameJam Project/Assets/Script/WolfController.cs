@@ -5,9 +5,7 @@ using UnityEngine;
 public class WolfController : MonoBehaviour
 {
     Transform m_transform;
-    Rigidbody m_rigidbody;
     GameObject m_player;
-    Rigidbody m_playerRigidbody;
     PlayerController m_playerController;
     float m_stopTimer = 0.0f;
     float m_stopTime = 0.0f;
@@ -16,9 +14,7 @@ public class WolfController : MonoBehaviour
     void Start()
     {
         m_transform = this.GetComponent<Transform>();
-        m_rigidbody = this.GetComponent<Rigidbody>();
         m_player = GameObject.Find("Player");
-        m_playerRigidbody = m_player.GetComponent<Rigidbody>();
         m_playerController = m_player.GetComponent<PlayerController>();
         m_stopTime = Random.Range(3.0f, 1.0f);
     }
@@ -53,9 +49,7 @@ public class WolfController : MonoBehaviour
             float angle = Mathf.Acos(Vector3.Dot(front, distance));
             if (Mathf.Abs(angle) <= Mathf.PI * 0.25f)
             {
-              
                 m_playerController.SetisEscape(front);
-                Debug.Log("A");
             }
         }
     }

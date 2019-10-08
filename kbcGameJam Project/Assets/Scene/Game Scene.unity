@@ -433,6 +433,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d0f2d1add2ac1d42b02c6a2563582e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  radius: 8
+  targetHeight: 1.5
+  targetFront: 0.3
+  SPEED: 115
 --- !u!1 &857901085
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,8 +776,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BARKLONG: 10
-  ESCAPESPEED: 1500
-  MOVESPEED: 13
+  ESCAPESPEED: 1200
+  MOVESPEED: 600
+  m_isEscapeTime: 1.5
 --- !u!65 &1847802737
 BoxCollider:
   m_ObjectHideFlags: 0

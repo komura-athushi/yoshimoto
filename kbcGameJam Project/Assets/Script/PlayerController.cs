@@ -12,10 +12,12 @@ public class PlayerController : MonoBehaviour
     float m_timer = 0.0f;
     bool m_isEscape = false;
     float m_isEscapeTimer = 0.0f;
-    float m_isEscapeTime = 2.0f;
+    bool m_isStartEscape = false;
+    Vector3 m_escapeVector = Vector3.zero;
     public float BARKLONG = 10.0f;
-    public float ESCAPESPEED = 1500.0f;
-    public float MOVESPEED = 13.0f;
+    public float ESCAPESPEED = 500.0f;
+    public float MOVESPEED = 600.0f;
+    public float m_isEscapeTime = 1.5f;
     //吠えたかどうか
     public bool GetisBark()
     {
@@ -36,7 +38,7 @@ public class PlayerController : MonoBehaviour
     public void SetisEscape(Vector3 vector)
     {
         m_isEscape = true;
-        m_rigidbody.velocity =vector* ESCAPESPEED * Time.deltaTime;
+        m_escapeVector = vector;
     }
     // Start is called before the first frame update
     void Start()
@@ -48,10 +50,7 @@ public class PlayerController : MonoBehaviour
 
     void LookDownCamera()
     {
-        
-
-        
-        Vector3 moveSpeed = new Vector3(0.0f,0.0f,0.0f);
+        Vector3 moveSpeed = Vector3.zero;
         moveSpeed.x = Input.GetAxis("Horizontal") * MOVESPEED;
         moveSpeed.z = Input.GetAxis("Vertical") * MOVESPEED;
         //m_transform.position += moveSpeed;
@@ -63,7 +62,7 @@ public class PlayerController : MonoBehaviour
     }
     void MoveRot()
     {
-        if(m_isBark && m_isEscape)
+        if(m_isBark || m_isEscape)
         {
             return;
         }
@@ -78,13 +77,13 @@ public class PlayerController : MonoBehaviour
         Vector3 moveSpeed;
         moveSpeed = front + right;
         moveSpeed.y = 0.0f;
-        m_rigidbody.velocity = moveSpeed;
+        m_rigidbody.velocity = moveSpeed * Time.deltaTime;
         if(moveSpeed.magnitude <= 0.01f)
         {
             return;
         }
-        Quaternion rot = new Quaternion();
-        rot.SetLookRotation(moveSpeed * Time.deltaTime);
+        Quaternion rot = Quaternion.identity;
+        rot.SetLookRotation(moveSpeed);
         transform.rotation = rot;
     }
     void Bark()
@@ -107,20 +106,34 @@ public class PlayerController : MonoBehaviour
             m_rigidbody.velocity = Vector3.zero;
         }
     }
+    void Escape()
+    {
+        if (m_isEscape)
+        {
+            if (!m_isStartEscape)
+            {
+                m_rigidbody.velocity = m_escapeVector * ESCAPESPEED * Time.deltaTime;
+                m_isStartEscape = true;
+                Quaternion rot = Quaternion.identity;
+                rot.SetLookRotation(m_escapeVector);
+                transform.rotation = rot;
+            }
+            m_isEscapeTimer += Time.deltaTime;
+            if (m_isEscapeTimer >= m_isEscapeTime)
+            {
+                m_isEscape = false;
+                m_isStartEscape = false;
+                m_isEscapeTimer = 0.0f;
+            }
+        }
+    }
     // Update is called once per frame
     void Update()
     {
        
         MoveRot();
         Bark();
-      
-        if(m_isEscape) {
-            m_isEscapeTimer += Time.deltaTime;
-            if(m_isEscapeTimer >= m_isEscapeTime)
-            {
-                m_isEscape = false;
-                m_isEscapeTimer = 0.0f;
-            }
-        }
+        Escape();
+       
     }
 }
