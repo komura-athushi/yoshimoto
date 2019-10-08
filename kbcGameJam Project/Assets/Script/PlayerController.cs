@@ -12,15 +12,16 @@ public class PlayerController : MonoBehaviour
     float m_timer = 0.0f;
 
     //吠えたかどうか
-    bool GetisBark()
+    public bool GetisBark()
     {
         return m_isBark;
     }
     //犬の吠えたベクトルを取得
-    Vector3 GetVector()
+    public Vector3 GetBarkVector()
     {
         const float LONG = 10.0f;
-        return LONG * transform.forward;
+        //Debug.Log(LONG * m_transform.forward);
+        return LONG * m_transform.forward;
     }
     // Start is called before the first frame update
     void Start()
@@ -32,7 +33,7 @@ public class PlayerController : MonoBehaviour
 
     void LookDownCamera()
     {
-        const float SPEED = 10.15f;
+        const float SPEED = 60.15f;
 
         
         Vector3 moveSpeed = new Vector3(0.0f,0.0f,0.0f);
@@ -47,6 +48,10 @@ public class PlayerController : MonoBehaviour
     }
     void MoveRot()
     {
+        if(m_isBark)
+        {
+            return;
+        }
         const float MOVESPEED = 13.0f;
 
         Vector3 front = m_gameCameraController.GetFront();
@@ -64,17 +69,29 @@ public class PlayerController : MonoBehaviour
             return;
         }
         Quaternion rot = new Quaternion();
-        rot.SetLookRotation(moveSpeed);
+        rot.SetLookRotation(moveSpeed * Time.deltaTime);
         transform.rotation = rot;
     }
     void Bark()
     {
-
+        if(m_isBark)
+        {
+            m_timer += Time.deltaTime;
+            if(m_timer >= 1.0f)
+            {
+                m_isBark = false;
+                m_timer = 0.0f;
+            }
+        }
+        else if(Input.GetKeyDown("joystick button 0")) {
+            m_isBark = true;
+            m_rigidbody.velocity = Vector3.zero;
+        }
     }
     // Update is called once per frame
     void Update()
     {
         MoveRot();
-        
+        Bark();
     }
 }
