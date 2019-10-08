@@ -12,6 +12,20 @@ public class SheepController : MonoBehaviour
     float m_stopTimer = 0.0f;
     float m_stopTime = 0.0f;
     Rigidbody m_rigidBody;
+    bool m_isCapture = false;
+    public float BARKSPEED = 1300.0f;
+    public float BARKMOVETIME = 1.5f;
+    public float DOGDISTANCE = 5.0f * 5.0f;
+    public float DOGMOVESPEED = 1500.0f;
+    public float MOVESPEED = 1000.0f;
+    void SetisCapture()
+    {
+        m_isCapture = true;
+    }
+    bool GetisCapture()
+    {
+        return m_isCapture;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -24,11 +38,11 @@ public class SheepController : MonoBehaviour
 
     void BarkMove()
     {
-        const float SPEED = 1300.0f;
+      
 
         Vector3 moveSpeed = m_playerController.GetBarkVector();
         moveSpeed.Normalize();
-        moveSpeed *= SPEED;
+        moveSpeed *= BARKSPEED;
         moveSpeed = Quaternion.Euler(0, Random.Range(-25.0f, 25.0f), 0) * moveSpeed;
         m_rigidBody.velocity = moveSpeed * Time.deltaTime;
         m_isBarkMove = true;
@@ -36,12 +50,10 @@ public class SheepController : MonoBehaviour
     }
     void BarkOut()
     {
-        const float TIME = 1.5f;
-
         if(m_isBarkMove)
         {
             m_barkMoveTimer += Time.deltaTime;
-            if(m_barkMoveTimer >= TIME)
+            if(m_barkMoveTimer >= BARKMOVETIME)
             {
                 m_isBarkMove = false;
                 m_barkMoveTimer = 0.0f;
@@ -50,8 +62,6 @@ public class SheepController : MonoBehaviour
     }
     void DogDistance()
     {
-        const float DISTANCE = 5.0f * 5.0f;
-
         if(m_playerController.GetisBark() && !m_isBarkMove)
         {
             Vector3 distance = m_transform.position - m_player.transform.position;
@@ -71,12 +81,11 @@ public class SheepController : MonoBehaviour
         else
         {
             Vector3 distance = m_transform.position - m_player.transform.position;
-            if(distance.sqrMagnitude <= DISTANCE)
+            if(distance.sqrMagnitude <= DOGDISTANCE)
             {
-                const float SPEED = 1500.0f;
-                Debug.Log(distance);
+                //Debug.Log(distance);
                 distance.Normalize();
-                distance *= SPEED;
+                distance *= DOGMOVESPEED;
                 float ram = Random.Range(-1, 1);
                 float degree = 0.0f;
                 if(ram > 0.2f)
@@ -101,8 +110,6 @@ public class SheepController : MonoBehaviour
     }
     void Move()
     {
-        const float SPEED = 1000.0f;
-
         if (m_isBarkMove)
         {
             return;
@@ -110,12 +117,10 @@ public class SheepController : MonoBehaviour
         m_stopTimer += Time.deltaTime;
         if (m_stopTimer >= m_stopTime)
         {
-           
-
             Vector3 moveSpeed = Vector3.zero;
             moveSpeed.x = Random.Range(-1.0f, 1.0f);
             moveSpeed.z = Random.Range(-1.0f, 1.0f);
-            m_rigidBody.velocity = moveSpeed * Time.deltaTime * SPEED;
+            m_rigidBody.velocity = moveSpeed * Time.deltaTime * MOVESPEED;
             m_stopTimer = 0.0f;
             m_stopTime = Random.Range(3.0f, 5.0f);
            

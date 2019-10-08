@@ -10,7 +10,12 @@ public class PlayerController : MonoBehaviour
     GameCameraController m_gameCameraController;
     bool m_isBark = false;
     float m_timer = 0.0f;
-
+    bool m_isEscape = false;
+    float m_isEscapeTimer = 0.0f;
+    float m_isEscapeTime = 2.0f;
+    public float BARKLONG = 10.0f;
+    public float ESCAPESPEED = 1500.0f;
+    public float MOVESPEED = 13.0f;
     //吠えたかどうか
     public bool GetisBark()
     {
@@ -19,9 +24,19 @@ public class PlayerController : MonoBehaviour
     //犬の吠えたベクトルを取得
     public Vector3 GetBarkVector()
     {
-        const float LONG = 10.0f;
-        //Debug.Log(LONG * m_transform.forward);
-        return LONG * m_transform.forward;
+        
+        return BARKLONG * m_transform.forward;
+    }
+    //逃げてる?
+    public bool GetisEscape()
+    {
+        return m_isEscape;
+    }
+    //逃げた！
+    public void SetisEscape(Vector3 vector)
+    {
+        m_isEscape = true;
+        m_rigidbody.velocity =vector* ESCAPESPEED * Time.deltaTime;
     }
     // Start is called before the first frame update
     void Start()
@@ -33,12 +48,12 @@ public class PlayerController : MonoBehaviour
 
     void LookDownCamera()
     {
-        const float SPEED = 60.15f;
+        
 
         
         Vector3 moveSpeed = new Vector3(0.0f,0.0f,0.0f);
-        moveSpeed.x = Input.GetAxis("Horizontal") * SPEED;
-        moveSpeed.z = Input.GetAxis("Vertical") * SPEED;
+        moveSpeed.x = Input.GetAxis("Horizontal") * MOVESPEED;
+        moveSpeed.z = Input.GetAxis("Vertical") * MOVESPEED;
         //m_transform.position += moveSpeed;
         //rigidbody.velocity = moveSpeed;
         m_rigidbody.velocity = moveSpeed;
@@ -48,11 +63,11 @@ public class PlayerController : MonoBehaviour
     }
     void MoveRot()
     {
-        if(m_isBark)
+        if(m_isBark && m_isEscape)
         {
             return;
         }
-        const float MOVESPEED = 13.0f;
+     
 
         Vector3 front = m_gameCameraController.GetFront();
         Vector3 right = m_gameCameraController.GetRight();
@@ -74,6 +89,10 @@ public class PlayerController : MonoBehaviour
     }
     void Bark()
     {
+        if(m_isEscape)
+        {
+            return;
+        }
         if(m_isBark)
         {
             m_timer += Time.deltaTime;
@@ -91,7 +110,17 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       
         MoveRot();
         Bark();
+      
+        if(m_isEscape) {
+            m_isEscapeTimer += Time.deltaTime;
+            if(m_isEscapeTimer >= m_isEscapeTime)
+            {
+                m_isEscape = false;
+                m_isEscapeTimer = 0.0f;
+            }
+        }
     }
 }
