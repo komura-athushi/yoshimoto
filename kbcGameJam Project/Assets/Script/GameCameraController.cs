@@ -11,6 +11,10 @@ public class GameCameraController : MonoBehaviour
     float m_degreeV = 50.0f;
     Vector3 m_front = Vector3.zero;
     Vector3 m_right = Vector3.zero;
+    public float radius = 8.0f;
+    public float targetHeight = 1.5f;
+    public float targetFront = 0.3f;
+    public float SPEED = 2.3f * 50.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,10 +34,7 @@ public class GameCameraController : MonoBehaviour
     [System.Obsolete]
     void TPSCamera()
     {
-        const float radius = 8.0f;
-        const float targetHeight = 1.5f;
-        const float targetFront = 0.3f;
-        const float SPEED = 2.3f * 50.0f;
+     
         float degreeH = Input.GetAxis("Horizontal2") * SPEED * Time.deltaTime;
         float degreeV = 0.0f; //= Input.GetAxis("Vertical2") * 2.3f;
 
@@ -74,10 +75,10 @@ public class GameCameraController : MonoBehaviour
         toPos *= radius;
         Vector3 position = targetCamPos + toPos;
 
-        transform.position = position;
+        m_transform.position = position;
         toPos.y = 0.0f;
         targetCamPos -= toPos * targetFront;
-        transform.LookAt(targetCamPos);
+        m_transform.LookAt(targetCamPos);
 
         m_front = targetCamPos - position;
         m_front = m_front.normalized;
