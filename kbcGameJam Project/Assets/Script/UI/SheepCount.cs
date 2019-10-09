@@ -8,6 +8,8 @@ public class SheepCount : MonoBehaviour
     aboutmove about;
     int count;
     public Text numText;
+    public float kyori;
+    public GameObject PosSheep;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,10 +17,10 @@ public class SheepCount : MonoBehaviour
         SheepnumCount();
     }
 
-    // Update is called once per frame
+    //Update is called once per frame
     //void Update()
     //{
-        
+    //
     //}
 
     void OnTriggerEnter(Collider other)
