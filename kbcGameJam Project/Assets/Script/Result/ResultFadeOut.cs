@@ -45,7 +45,7 @@ public class ResultFadeOut : MonoBehaviour
             }
             if (count > 2.3f)
             {
-                SceneManager.LoadScene("Title Scene");
+                SceneManager.LoadScene("Ranking Scene");
             }
         }
     }
