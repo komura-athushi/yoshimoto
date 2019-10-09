@@ -12,7 +12,7 @@ public class CountUp : MonoBehaviour
     void Start()
     {
         flag = false;
-        StartCoroutine(ScoreAnimation(0f, 50f, 2f));
+        StartCoroutine(ScoreAnimation(0f, SheepCount.SHEEPCOUNT, 2f));
     }
 
     // Update is called once per frame
