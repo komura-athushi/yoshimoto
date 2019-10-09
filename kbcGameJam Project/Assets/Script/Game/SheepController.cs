@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,7 +18,13 @@ public class SheepController : MonoBehaviour
     public float DOGDISTANCE = 5.0f * 5.0f;
     public float DOGMOVESPEED = 1500.0f;
     public float MOVESPEED = 1000.0f;
+    public float LIMITEDZ = 1000.0f; 
     public int m_point = 0;
+    //アニメ追加ぁぁ
+    Animator m_anime;
+
+
+    public Timer m_timer;
     //捕まった！
     public void SetisCapture()
     {
@@ -41,7 +47,12 @@ public class SheepController : MonoBehaviour
         m_playerController = m_player.GetComponent<PlayerController>();
         m_transform = this.GetComponent<Transform>();
         m_rigidBody = this.GetComponent<Rigidbody>();
+        m_anime = this.GetComponent<Animator>();
         m_stopTime = Random.Range(5.0f, 10.0f);
+
+
+        m_timer = GameObject.Find("GameDirector").GetComponent<Timer>();
+
     }
 
     void BarkMove()
@@ -58,6 +69,10 @@ public class SheepController : MonoBehaviour
     }
     void BarkOut()
     {
+        if(m_isCapture)
+        {
+            return;
+        }
         if(m_isBarkMove)
         {
             m_barkMoveTimer += Time.deltaTime;
@@ -70,6 +85,10 @@ public class SheepController : MonoBehaviour
     }
     void DogDistance()
     {
+        if(m_isCapture)
+        {
+            return;
+        }
         if(m_playerController.GetisBark() && !m_isBarkMove)
         {
             Vector3 distance = m_transform.position - m_player.transform.position;
@@ -147,12 +166,40 @@ public class SheepController : MonoBehaviour
             m_transform.rotation = rot;
         }
     }
+
+    void Animation()
+    {
+        if (m_rigidBody.velocity.sqrMagnitude >= 2.0f)
+        {
+            m_anime.SetInteger("Walk", 1);
+            //Debug.Log("動いてるねぇ!");
+        }
+        else
+        {
+            m_anime.SetInteger("Walk", 0);
+            //Debug.Log("動いてないねぇ!");
+        }
+    }
     // Update is called once per frame
     void Update()
     {
+        if (!m_timer.GetisStart() || m_timer.GetisEnd())
+        {
+            return;
+        }
+        if(m_isCapture)
+        {
+            m_isBarkMove = false;
+        }
         DogDistance();
         BarkOut();
         Move();
         Rotation();
+        Animation();
+
+        if(m_isCapture && m_transform.position.z <= LIMITEDZ)
+        {
+            m_transform.position = new Vector3(0.0f,0.0f,LIMITEDZ);
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,13 +10,26 @@ public class WolfController : MonoBehaviour
     float m_stopTimer = 0.0f;
     float m_stopTime = 0.0f;
     public float DOGDISTANCE = 10.0f * 10.0f;
+    //アニメ
+    Animator m_anime;
+    Vector3 latestPos;
+    Vector3 speed;
+    public Timer m_timer;
+
     // Start is called before the first frame update
     void Start()
     {
         m_transform = this.GetComponent<Transform>();
+        //アニメ
+        m_anime = this.GetComponent<Animator>();
         m_player = GameObject.Find("Player");
         m_playerController = m_player.GetComponent<PlayerController>();
         m_stopTime = Random.Range(3.0f, 1.0f);
+        Animation();
+
+
+        m_timer = GameObject.Find("GameDirector").GetComponent<Timer>();
+
     }
 
     void Rotation()
@@ -53,9 +66,18 @@ public class WolfController : MonoBehaviour
             }
         }
     }
+    void Animation()
+    {
+        m_anime.Play("Walk");
+    }
     // Update is called once per frame
     void Update()
     {
+        if(!m_timer.GetisStart() || m_timer.GetisEnd())
+        {
+            return;
+        }
+
         Rotation();
         EscapeDog();
     }
