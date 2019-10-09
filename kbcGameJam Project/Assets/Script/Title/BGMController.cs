@@ -6,7 +6,7 @@ public class BGMController : MonoBehaviour
 {
     //シングルトン
     private static GameObject m_instance = null;
-
+  
     public static GameObject Instance
     {
         get { return m_instance; }

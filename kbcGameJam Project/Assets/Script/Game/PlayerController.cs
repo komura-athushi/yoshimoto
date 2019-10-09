@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     //アニメーションに必要なため変数を追加しました。
     Animator m_anim;
 
+
     public Timer m_timerr;
     //吠えたかどうか
     public bool GetisBark()
@@ -53,7 +54,9 @@ public class PlayerController : MonoBehaviour
         m_anim = this.GetComponent<Animator>();
         m_gameCameraController = GameObject.Find("GameCamera").GetComponent<GameCameraController>();
 
+
         m_timerr = GameObject.Find("GameDirector").GetComponent<Timer>();
+
     }
 
     void LookDownCamera()

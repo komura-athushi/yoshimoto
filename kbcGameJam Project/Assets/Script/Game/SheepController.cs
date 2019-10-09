@@ -23,6 +23,7 @@ public class SheepController : MonoBehaviour
     //アニメ追加ぁぁ
     Animator m_anime;
 
+
     public Timer m_timer;
     //捕まった！
     public void SetisCapture()
@@ -49,7 +50,9 @@ public class SheepController : MonoBehaviour
         m_anime = this.GetComponent<Animator>();
         m_stopTime = Random.Range(5.0f, 10.0f);
 
+
         m_timer = GameObject.Find("GameDirector").GetComponent<Timer>();
+
     }
 
     void BarkMove()

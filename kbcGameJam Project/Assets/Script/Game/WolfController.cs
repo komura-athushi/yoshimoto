@@ -15,7 +15,7 @@ public class WolfController : MonoBehaviour
     Vector3 latestPos;
     Vector3 speed;
     public Timer m_timer;
-    GameObject m_gameObject;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,8 +27,9 @@ public class WolfController : MonoBehaviour
         m_stopTime = Random.Range(3.0f, 1.0f);
         Animation();
 
-        m_gameObject = GameObject.Find("GameDirector");
-        m_timer = m_gameObject.GetComponent<Timer>();
+
+        m_timer = GameObject.Find("GameDirector").GetComponent<Timer>();
+
     }
 
     void Rotation()

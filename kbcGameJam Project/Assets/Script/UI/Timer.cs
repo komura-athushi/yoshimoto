@@ -144,7 +144,7 @@ public class Timer : MonoBehaviour
     {
         m_alpha += Time.deltaTime;
         fade.color = new Color(fade.color.r,fade.color.g,fade.color.b, m_alpha);
-        Debug.Log(fade.color.a);
+       
         if (fade.color.a >= 1.2f)
         {
            
