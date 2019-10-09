@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class PyonPyon : MonoBehaviour
 {
-    bool pyonpyon = false;
-    bool jump = false;
-    int count = 0;
-    float time = 0.0f;
+    bool pyonpyon;
+    bool jump;
+    int count;
+    float time;
     // Start is called before the first frame update
     void Start()
     {
-        
+        pyonpyon = false;
+        jump = false;
+        count = 0;
+        time = 0.0f;
     }
 
     // Update is called once per frame

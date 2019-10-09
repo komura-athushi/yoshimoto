@@ -22,17 +22,17 @@ public class SheepController : MonoBehaviour
     //アニメ追加ぁぁ
     Animator m_anime;
     //捕まった！
-    void SetisCapture()
+    public void SetisCapture()
     {
         m_isCapture = true;
     }
     //捕まった？
-    bool GetisCapture()
+    public bool GetisCapture()
     {
         return m_isCapture;
     }
     //こいつの持ってるポイントを取得
-    int GetPoint()
+    public int GetPoint()
     {
         return m_point;
     }
