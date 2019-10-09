@@ -60,6 +60,7 @@ public class SheepController : MonoBehaviour
       
 
         Vector3 moveSpeed = m_playerController.GetBarkVector();
+        moveSpeed.y = 0.0f;
         moveSpeed.Normalize();
         moveSpeed *= BARKSPEED;
         moveSpeed = Quaternion.Euler(0, Random.Range(-25.0f, 25.0f), 0) * moveSpeed;
@@ -199,7 +200,7 @@ public class SheepController : MonoBehaviour
 
         if(m_isCapture && m_transform.position.z <= LIMITEDZ)
         {
-            m_transform.position = new Vector3(0.0f,0.0f,LIMITEDZ);
+            m_transform.position = new Vector3(m_transform.position.x,m_transform.position.y,LIMITEDZ);
         }
     }
 }
