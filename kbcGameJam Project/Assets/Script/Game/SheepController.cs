@@ -18,13 +18,21 @@ public class SheepController : MonoBehaviour
     public float DOGDISTANCE = 5.0f * 5.0f;
     public float DOGMOVESPEED = 1500.0f;
     public float MOVESPEED = 1000.0f;
+    public int m_point = 0;
+    //捕まった！
     void SetisCapture()
     {
         m_isCapture = true;
     }
+    //捕まった？
     bool GetisCapture()
     {
         return m_isCapture;
+    }
+    //こいつの持ってるポイントを取得
+    int GetPoint()
+    {
+        return m_point;
     }
     // Start is called before the first frame update
     void Start()

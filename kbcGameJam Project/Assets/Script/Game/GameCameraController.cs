@@ -6,7 +6,6 @@ public class GameCameraController : MonoBehaviour
 {
     Transform m_target;
     Transform m_transform;
-    Camera m_cam;
     float m_degreeH = 180.0f;
     float m_degreeV = 50.0f;
     Vector3 m_front = Vector3.zero;
