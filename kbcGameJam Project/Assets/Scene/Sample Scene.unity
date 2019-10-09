@@ -310,7 +310,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 8
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &327576988
 MonoBehaviour:
@@ -339,7 +339,7 @@ GameObject:
   - component: {fileID: 362389979}
   - component: {fileID: 362389978}
   m_Layer: 0
-  m_Name: CollisionDetection
+  m_Name: LenghtDetection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -358,6 +358,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numText: {fileID: 800597557}
+  kyori: 0
+  PosSheep: {fileID: 0}
 --- !u!65 &362389979
 BoxCollider:
   m_ObjectHideFlags: 0
