@@ -8,11 +8,13 @@ public class CountUp : MonoBehaviour
     public Text scoreText;
     public bool flag;
 
+    public AudioSource dararara;
+    public AudioSource deden;
     // Use this for initialization
     void Start()
     {
         flag = false;
-        StartCoroutine(ScoreAnimation(0f, 50f, 2f));
+        StartCoroutine(ScoreAnimation(0f, SheepCount.SHEEPCOUNT, 2f));
     }
 
     // Update is called once per frame
@@ -27,6 +29,7 @@ public class CountUp : MonoBehaviour
 
         // 終了時間
         float endTime = startTime + duration;
+        dararara.Play();
         do
         {
             // 現在の時間の割合
@@ -43,7 +46,8 @@ public class CountUp : MonoBehaviour
             yield return null;
 
         } while (Time.time < endTime);
-
+        dararara.Stop();
+        deden.Play();
         // 最終的な着地のスコア
         scoreText.text = endScore.ToString();
         scoreText.fontSize = 24;

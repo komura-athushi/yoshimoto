@@ -12,7 +12,6 @@ public class ResultFadeOut : MonoBehaviour
     bool start;
     bool se;
     AudioSource sound;
-
     void Start()
     {
         red = GetComponent<Image>().color.r;
