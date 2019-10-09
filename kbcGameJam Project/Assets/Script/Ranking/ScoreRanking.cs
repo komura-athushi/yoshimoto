@@ -7,29 +7,27 @@ public class ScoreRanking : MonoBehaviour
     public static int[] score = { 0, 0, 0 };
     public int tmp;
     public int num;
+
+   
     // Start is called before the first frame update
     void Start()
     {
-        
+        num = SheepCount.SHEEPCOUNT;
+        for(int i = 0; i < score.Length; i++)
+        {
+            if(score[i] < num)
+            {
+                BubbleSort(i);
+                score[i] = num;
+                //Debug.Log("A");
+                return;
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        num = SheepCount.SHEEPCOUNT;
-        if (num > score[0])
-        {
-            score[0] = num;
-        }
-        else if (num > score[1])
-        {
-            score[1] = num;
-        }
-        else if (num > score[2])
-        {
-            score[2] = num;
-        }
-        BubbleSort(score);
         GameObject score1 = GameObject.Find("Ranking1");
         Text score01 = score1.GetComponent<Text>();
         score01.text = score[0].ToString();
@@ -41,18 +39,14 @@ public class ScoreRanking : MonoBehaviour
         score03.text = score[2].ToString();
     }
 
-    void BubbleSort(int[] a)
+    void BubbleSort(int number)
     {
-
-        for (int i = 0; i < a.Length - 1; i++)
+        int memory = score[number];
+        for(int i = number + 1; i < score.Length; i++)
         {
-            if (a[i] < a[i + 1])
-            {
-                int tmp;
-                tmp = a[i];
-                a[i] = a[i + 1];
-                a[i + 1] = tmp;
-            }
+            int hoge = score[i];
+            score[i] = memory;
+            memory = hoge;
         }
     }
 }
