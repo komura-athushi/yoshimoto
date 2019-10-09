@@ -134,6 +134,5 @@ public class PlayerController : MonoBehaviour
         MoveRot();
         Bark();
         Escape();
-       
     }
 }

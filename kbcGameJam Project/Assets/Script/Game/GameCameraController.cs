@@ -33,7 +33,7 @@ public class GameCameraController : MonoBehaviour
     [System.Obsolete]
     void TPSCamera()
     {
-     
+        
         float degreeH = Input.GetAxis("Horizontal2") * SPEED * Time.deltaTime;
         float degreeV = 0.0f; //= Input.GetAxis("Vertical2") * 2.3f;
 
