@@ -12,7 +12,7 @@ public class FadeOut : MonoBehaviour
     bool start = false;
     bool se = false;
     AudioSource sound;
-
+    
     void Start()
     {
         red = GetComponent<Image>().color.r;
@@ -23,8 +23,9 @@ public class FadeOut : MonoBehaviour
 
     void Update()
     {
+        
         //if (Input.GetKeyDown("joystick button 0"))
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown("joystick button 0"))
         {
           
             start = true;
@@ -40,7 +41,7 @@ public class FadeOut : MonoBehaviour
             GetComponent<Image>().color = new Color(red, green, blue, alfa);
             alfa += Time.deltaTime;
         }
-        if (count > 3.0f)
+        if (count > 2.3f)
         {
             SceneManager.LoadScene("Game Scene");
         }
