@@ -20,17 +20,17 @@ public class SheepController : MonoBehaviour
     public float MOVESPEED = 1000.0f;
     public int m_point = 0;
     //捕まった！
-    void SetisCapture()
+    public void SetisCapture()
     {
         m_isCapture = true;
     }
     //捕まった？
-    bool GetisCapture()
+    public bool GetisCapture()
     {
         return m_isCapture;
     }
     //こいつの持ってるポイントを取得
-    int GetPoint()
+    public int GetPoint()
     {
         return m_point;
     }
