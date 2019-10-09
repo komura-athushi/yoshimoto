@@ -6,14 +6,20 @@ using UnityEngine.UI;
 public class CountUp : MonoBehaviour
 {
     public Text scoreText;
-    public GameObject Button;
+    public bool flag;
+
     // Use this for initialization
     void Start()
     {
-        StartCoroutine(ScoreAnimation(0f, 10f, 2f));
+        flag = false;
+        StartCoroutine(ScoreAnimation(0f, 50f, 2f));
     }
 
-    // スコアをアニメーションさせる
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
     private IEnumerator ScoreAnimation(float startScore, float endScore, float duration)
     {
         // 開始時間
@@ -21,17 +27,17 @@ public class CountUp : MonoBehaviour
 
         // 終了時間
         float endTime = startTime + duration;
-
         do
         {
             // 現在の時間の割合
             float timeRate = (Time.time - startTime) / duration;
 
-            // 数値を更新
-            float updateValue = (float)((endScore - startScore) * timeRate + startScore);
-
+            //float u = (float)((endScore - startScore) * timeRate + startScore);
+            float threedigit = Random.Range(0, 9);
+            float twodigit = Random.Range(0, 9);
+            float onedigit = Random.Range(0, 9);
             // テキストの更新
-            scoreText.text = updateValue.ToString("f0"); // （"f0" の "0" は、小数点以下の桁数指定）
+            scoreText.text = threedigit.ToString() + twodigit.ToString() + onedigit.ToString();
 
             // 1フレーム待つ
             yield return null;
@@ -40,8 +46,8 @@ public class CountUp : MonoBehaviour
 
         // 最終的な着地のスコア
         scoreText.text = endScore.ToString();
-        scoreText.fontSize = 30;
-        scoreText.color = new Color(255f, 209f, 0);
-        Instantiate(Button,transform.position,transform.rotation);
+        scoreText.fontSize = 24;
+        //scoreText.color = new Color(255f, 209f, 0);
+        flag = true;
     }
 }

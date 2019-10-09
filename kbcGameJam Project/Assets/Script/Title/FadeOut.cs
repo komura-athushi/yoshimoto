@@ -8,9 +8,9 @@ public class FadeOut : MonoBehaviour
 {
     float alfa;
     float red, green, blue;
-    float count = 0;
-    bool start = false;
-    bool se = false;
+    float count;
+    bool start;
+    bool se;
     AudioSource sound;
     
     void Start()
@@ -18,6 +18,9 @@ public class FadeOut : MonoBehaviour
         red = GetComponent<Image>().color.r;
         green = GetComponent<Image>().color.g;
         blue = GetComponent<Image>().color.b;
+        count = 0.0f;
+        start = false;
+        se = false;
         sound = GetComponent<AudioSource>();
     }
 
