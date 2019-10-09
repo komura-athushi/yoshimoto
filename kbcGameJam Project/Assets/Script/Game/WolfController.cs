@@ -14,6 +14,7 @@ public class WolfController : MonoBehaviour
     Animator m_anime;
     Vector3 latestPos;
     Vector3 speed;
+    Timer m_timer;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +25,8 @@ public class WolfController : MonoBehaviour
         m_playerController = m_player.GetComponent<PlayerController>();
         m_stopTime = Random.Range(3.0f, 1.0f);
         Animation();
+
+        m_timer = GameObject.Find("GameDirecter").GetComponent<Timer>();
     }
 
     void Rotation()
@@ -67,6 +70,11 @@ public class WolfController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!m_timer.GetisStart() || m_timer.GetisEnd())
+        {
+            return;
+        }
+
         Rotation();
         EscapeDog();
     }
