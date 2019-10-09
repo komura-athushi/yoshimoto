@@ -19,6 +19,8 @@ public class SheepController : MonoBehaviour
     public float DOGMOVESPEED = 1500.0f;
     public float MOVESPEED = 1000.0f;
     public int m_point = 0;
+    //アニメ追加ぁぁ
+    Animator m_anime;
     //捕まった！
     void SetisCapture()
     {
@@ -41,6 +43,7 @@ public class SheepController : MonoBehaviour
         m_playerController = m_player.GetComponent<PlayerController>();
         m_transform = this.GetComponent<Transform>();
         m_rigidBody = this.GetComponent<Rigidbody>();
+        m_anime = this.GetComponent<Animator>();
         m_stopTime = Random.Range(5.0f, 10.0f);
     }
 
@@ -147,6 +150,20 @@ public class SheepController : MonoBehaviour
             m_transform.rotation = rot;
         }
     }
+
+    void Animation()
+    {
+        if (m_rigidBody.velocity.sqrMagnitude >= 2.0f)
+        {
+            m_anime.SetInteger("Walk", 1);
+            Debug.Log("動いてるねぇ!");
+        }
+        else
+        {
+            m_anime.SetInteger("Walk", 0);
+            Debug.Log("動いてないねぇ!");
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -154,5 +171,6 @@ public class SheepController : MonoBehaviour
         BarkOut();
         Move();
         Rotation();
+        Animation();
     }
 }

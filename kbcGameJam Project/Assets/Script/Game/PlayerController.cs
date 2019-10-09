@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     public float ESCAPESPEED = 500.0f;
     public float MOVESPEED = 600.0f;
     public float m_isEscapeTime = 1.5f;
+    //アニメーションに必要なため変数を追加しました。
+    Animator m_anim;
     //吠えたかどうか
     public bool GetisBark()
     {
@@ -45,6 +47,8 @@ public class PlayerController : MonoBehaviour
     {
         m_transform = this.GetComponent<Transform>();
         m_rigidbody = this.GetComponent<Rigidbody>();
+        //アニメーション用に追加
+        m_anim = this.GetComponent<Animator>();
         m_gameCameraController = GameObject.Find("GameCamera").GetComponent<GameCameraController>();
     }
 
@@ -127,6 +131,19 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    void Animation()
+    {
+        if (m_rigidbody.velocity != Vector3.zero)
+        {
+            m_anim.SetInteger("Walk", 1);
+        }
+        else
+        {
+            m_anim.SetInteger("Walk",0);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -134,6 +151,6 @@ public class PlayerController : MonoBehaviour
         MoveRot();
         Bark();
         Escape();
-       
+        Animation();
     }
 }
