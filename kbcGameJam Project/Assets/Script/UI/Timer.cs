@@ -148,7 +148,7 @@ public class Timer : MonoBehaviour
         if (fade.color.a >= 1.2f)
         {
            
-            SceneManager.LoadScene("Title Scene");
+            SceneManager.LoadScene("Result Scene");
         }
     }
 }
