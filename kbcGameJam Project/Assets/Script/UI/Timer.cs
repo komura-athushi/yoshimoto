@@ -31,6 +31,8 @@ public class Timer : MonoBehaviour
     float m_alpha = 0.0f;
 
     public AudioSource End;
+    public AudioSource StartSe;
+    public AudioSource Pin;
     //始まった?
     public bool GetisStart()
     {
@@ -87,8 +89,9 @@ public class Timer : MonoBehaviour
         int minute1 = (int)m_startMinute;
         m_startMinute -= Time.deltaTime;
         int minute2 = (int)m_startMinute;
-        if (minute2 < 0)
+        if (minute2 < 1)
         {
+            StartSe.Play();
             m_isStart = true;
             return;
         }
@@ -96,6 +99,7 @@ public class Timer : MonoBehaviour
         {
             startText.fontSize = m_textScale;
             m_countScale = m_textScale;
+            Pin.Play();
         }
         else
         {
@@ -115,7 +119,7 @@ public class Timer : MonoBehaviour
         totalTime -= Time.deltaTime;
         minute = (int)totalTime / 60;
         seconds = (int)totalTime - (minute * 60);
-        timerText.text = "あと" + minute.ToString() + "分" + seconds.ToString() + "秒";
+        timerText.text = "あと " + minute.ToString() + "ふん " + seconds.ToString() + "びょう";
         if (minute == 0 && seconds == 0)
         {
             m_isEnd = true;

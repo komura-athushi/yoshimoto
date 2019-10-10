@@ -10,6 +10,7 @@ public class SheepCount : MonoBehaviour
     public Text numText;
     public float DISTANCE;
     public Vector3 POSITION;
+    public float LIMITEDZ = 0.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,6 +56,6 @@ public class SheepCount : MonoBehaviour
     }*/
     void SheepnumCount()
     {
-        numText.text = string.Format("捕まえた羊の数:{0}", SHEEPCOUNT);
+        numText.text = string.Format("つかまえたかず : {0}ひき", SHEEPCOUNT);
     }
 }

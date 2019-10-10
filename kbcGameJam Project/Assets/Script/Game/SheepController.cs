@@ -26,6 +26,8 @@ public class SheepController : MonoBehaviour
 
     public Timer m_timer;
     public AudioSource Koke;
+
+    SheepCount m_sheepCount;
     //捕まった！
     public void SetisCapture()
     {
@@ -56,6 +58,7 @@ public class SheepController : MonoBehaviour
 
         Koke = GameObject.Find("sheeps").GetComponent<AudioSource>();
 
+        m_sheepCount = GameObject.Find("Fence").GetComponent<SheepCount>();
     }
 
     void BarkMove()
@@ -101,7 +104,7 @@ public class SheepController : MonoBehaviour
                 distance.y = 0.0f;
                 distance.Normalize();
                 float angle = Mathf.Acos(Vector3.Dot(distance, m_playerController.GetBarkVector().normalized));
-                if (Mathf.Abs(angle) <= Mathf.PI * 0.25f)
+                if (Mathf.Abs(angle) <= Mathf.PI * 0.35f)
                 {
                     BarkMove();
                     //Debug.Log();
@@ -203,9 +206,9 @@ public class SheepController : MonoBehaviour
         Rotation();
         Animation();
 
-        if(m_isCapture && m_transform.position.z <= LIMITEDZ)
+        if(m_isCapture && m_transform.position.z <= m_sheepCount.LIMITEDZ)
         {
-            m_transform.position = new Vector3(m_transform.position.x,m_transform.position.y,LIMITEDZ);
+            m_transform.position = new Vector3(m_transform.position.x,m_transform.position.y,m_sheepCount.LIMITEDZ);
         }
     }
 }
