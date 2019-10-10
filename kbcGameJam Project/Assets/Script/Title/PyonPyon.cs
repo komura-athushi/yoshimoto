@@ -8,6 +8,7 @@ public class PyonPyon : MonoBehaviour
     bool jump;
     int count;
     float time;
+    AudioSource sound;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +16,7 @@ public class PyonPyon : MonoBehaviour
         jump = false;
         count = 0;
         time = 0.0f;
+        sound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -25,7 +27,7 @@ public class PyonPyon : MonoBehaviour
         {
             if (jump)
             {
-                transform.position -= new Vector3(0f, 1f, 0f);
+                transform.position -= new Vector3(0f, 100f * Time.deltaTime, 0f);
                 if (time >= 0.1f)
                 {
                     count++;
@@ -35,7 +37,7 @@ public class PyonPyon : MonoBehaviour
             }
             else
             {
-                transform.position += new Vector3(0f, 1f, 0f);
+                transform.position += new Vector3(0f, 100f * Time.deltaTime, 0f);
                 if (time >= 0.1f)
                 {
                     time = 0.0f;
@@ -53,6 +55,7 @@ public class PyonPyon : MonoBehaviour
             if (time >= Random.Range(1.0f, 10.0f))
             {
                 time = 0.0f;
+                sound.Play();
                 pyonpyon = true;
             }
         }
