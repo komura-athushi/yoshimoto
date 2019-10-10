@@ -25,6 +25,7 @@ public class SheepController : MonoBehaviour
 
 
     public Timer m_timer;
+    public AudioSource Koke;
     //捕まった！
     public void SetisCapture()
     {
@@ -52,6 +53,8 @@ public class SheepController : MonoBehaviour
 
 
         m_timer = GameObject.Find("GameDirector").GetComponent<Timer>();
+
+        Koke = GameObject.Find("sheeps").GetComponent<AudioSource>();
 
     }
 
@@ -102,6 +105,7 @@ public class SheepController : MonoBehaviour
                 {
                     BarkMove();
                     //Debug.Log();
+                    Koke.Play();
                 }
             }
  
@@ -131,7 +135,8 @@ public class SheepController : MonoBehaviour
                 distance = Quaternion.Euler(0.0f, degree, 0.0f) * distance;
                 m_rigidBody.velocity = distance * Time.deltaTime; ;
                 m_stopTimer = 0.0f;
-               
+
+                Koke.Play();
             }
 
         }
