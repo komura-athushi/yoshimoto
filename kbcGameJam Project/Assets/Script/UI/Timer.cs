@@ -29,6 +29,8 @@ public class Timer : MonoBehaviour
 
     bool m_isFade = false;
     float m_alpha = 0.0f;
+
+    public AudioSource End;
     //始まった?
     public bool GetisStart()
     {
@@ -117,6 +119,7 @@ public class Timer : MonoBehaviour
         if (minute == 0 && seconds == 0)
         {
             m_isEnd = true;
+            End.Play();
         }
     }
     void Third()

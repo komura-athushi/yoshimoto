@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     //アニメーションに必要なため変数を追加しました。
     Animator m_anim;
 
-
+    public AudioSource Wan;
     public Timer m_timerr;
     //吠えたかどうか
     public bool GetisBark()
@@ -115,6 +115,7 @@ public class PlayerController : MonoBehaviour
         else if(Input.GetKeyDown("joystick button 0")) {
             m_isBark = true;
             m_rigidbody.velocity = Vector3.zero;
+            Wan.Play();
         }
     }
     void Escape()
