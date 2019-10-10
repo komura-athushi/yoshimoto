@@ -16916,7 +16916,7 @@ MonoBehaviour:
   timerText: {fileID: 1542005308}
   startText: {fileID: 1643991758}
   endText: {fileID: 630378610}
-  totalTime: 240
+  totalTime: 150
   fade: {fileID: 145678510}
   End: {fileID: 1539133672}
 --- !u!4 &1539133671
