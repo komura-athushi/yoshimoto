@@ -20,7 +20,7 @@ public class Bird : MonoBehaviour
     {
         time += Time.deltaTime;
         x_pos -= 50 * Time.deltaTime;
-        if (time >= 16)
+        if (time >= 35)
         {
             x_pos = startXpos;
             time = 0f;
