@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour
         if(m_isBark)
         {
             m_timer += Time.deltaTime;
-            if(m_timer >= 1.0f)
+            if(m_timer >= 0.75f)
             {
                 m_isBark = false;
                 m_timer = 0.0f;

@@ -14,7 +14,7 @@ public class SheepController : MonoBehaviour
     Rigidbody m_rigidBody;
     bool m_isCapture = false;
     public float BARKSPEED = 1300.0f;
-    public float BARKMOVETIME = 1.5f;
+    const float BARKMOVETIME = 1.2f;
     public float DOGDISTANCE = 5.0f * 5.0f;
     public float DOGMOVESPEED = 1500.0f;
     public float MOVESPEED = 1000.0f;
